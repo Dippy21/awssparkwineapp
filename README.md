@@ -63,7 +63,7 @@ User can also create spark cluster using below aws cli command:
 6. Once setup is ready execute below command:
    Execute following command
  ``` 
- cd awssparkwineapp
+ cd awssparkwineapp/src
  spark-submit wine_test_data_prediction.py <filename>
  ```
  
