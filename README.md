@@ -22,7 +22,7 @@ User can create spark cluster using EMR console provided by AWS. Please follow s
 2. Navigate to Amazon EMR console using link  https://console.aws.amazon.com/elasticmapreduce/home?region=us-east-1. Then, navigate
    to clusters-> create cluster.
 3. Now fill respective sections:
-   General COnfiguratin -> Cluster Name 
+   General Configuratin -> Cluster Name 
    Software Configuration-> EMR 5.33 , do select 'Spark: Spark 2.4.7 on Hadoop 2.10.1 YARN and Zeppelin 0.9.0' option menu.
    Harware Configuration -> Make instance count as 4
    Security Access -> Provide .pem key created in above step.
@@ -58,15 +58,15 @@ User can create spark cluster using EMR console provided by AWS. Please follow s
 2. Make sure you have spark environment setup locally for running this. To setup one follow link https://spark.apache.org/docs/latest
 3. Install pyspark, you can use pip -m install pyspark. Or use `` conda``
 4. Once setup is ready execute below command:
-create a /app driectory and place your testdata file there.
- ```
- mkdir /app
- mv <testdata> /app/<filename>
+   place the testdata file in current directory and execute following command
+ ``` 
  cd awssparkwineapp
- spark-sumit wine_test_data_prediction.py <filename>
+ spark-sumit wine_test_data_prediction.py ./<filename>
  ```
  
 ### 4. Run ML model using Docker
-   
+1. Install docker where you want to run this container
+2. docker pull dfordeepika/awssparkwineapp
+3. 
    
 
