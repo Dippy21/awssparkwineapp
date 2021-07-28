@@ -71,7 +71,7 @@ User can create spark cluster using EMR console provided by AWS. Please follow s
 4. docker run -v {directory path for data dirA}:/code/data/csv dfordeepika/awssparkwineapp {testdata file name}
  Sample command
 ```
-docker run  -it -v /Users/deepika/workspace/deepika-cs-643/awssparkwineapp/data/csv:/code/data/csv dfordeepika/awssparkwineapp testdata.csv
+docker run -v /Users/deepika/workspace/deepika-cs-643/awssparkwineapp/data/csv:/code/data/csv dfordeepika/awssparkwineapp testdata.csv
 
 ```
 
