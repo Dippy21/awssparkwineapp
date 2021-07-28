@@ -38,17 +38,23 @@ if __name__ == "__main__":
     sc.setLogLevel('ERROR')
 
     # Load and parse the data file into an RDD of LabeledPoint.
-    if len(sys.argv) > 2:
-        print("Usage: pyspark_wine_training.py <input_file> <s3_output_bucketname>", file=sys.stderr)
+    if len(sys.argv) > 3:
+        print("Usage: wine_test_data_prediction.py <input_data_file> <model_path>", file=sys.stderr)
         sys.exit(-1)
     elif len(sys.argv) > 1:
         input_path = sys.argv[1]
+        
+        if not("/" in input_path):
+            input_path = "data/csv/" + input_path
+        model_path="/code/data/model/testdata.model"
+        print("----Input file for test data is---")
         print(input_path)
-        input_path = "/app/" + input_path
-        model_path="./testdata.model"
     else:
-        input_path = os.path.join(os.getcwd(),"testdata.csv")
-        model_path= os.path.join(os.getcwd(),"testdata.model")
+        current_dir = os.getcwd() 
+        print("-----------------------")
+        print(current_dir)
+        input_path = os.path.join(current_dir, "data/csv/testdata.csv")
+        model_path= os.path.join(current_dir, "data/model/testdata.model")
 
     # read csv file in DataFram 
     df = (spark.read

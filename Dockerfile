@@ -20,15 +20,20 @@ RUN ln -s /opt/spark-3.1.2-bin-hadoop2.7 /opt/spark
 RUN (echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc && echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.bashrc && echo 'export PYSPARK_PYTHON=python3' >> ~/.bashrc)
 
 RUN mkdir /code
-RUN mkdir code/testdata.model/
+RUN mkdir /code/data
+RUN mkdir /code/data/csv
+RUN mkdir /code/data/model
+RUN mkdir /code/src
+RUN mkdir /code/data/testdata.model/
 
-COPY wine_test_data_2.py /code/ 
-COPY testdata.model/ /code/testdata.model
+COPY src/wine_test_data_prediction.py /code/src
+
+COPY data/model/testdata.model/ /code/data/model/testdata.model
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN /bin/bash -c "source ~/.bashrc"
 RUN /bin/sh -c "source ~/.bashrc"
 
-WORKDIR /code
+WORKDIR /code/
 
-ENTRYPOINT ["/opt/spark/bin/spark-submit",  "wine_test_data_2.py"]
+ENTRYPOINT ["/opt/spark/bin/spark-submit",  "src/wine_test_data_prediction.py"]

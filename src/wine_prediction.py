@@ -100,10 +100,10 @@ if __name__ == "__main__":
     # Choosing RandomForestClassifier for training
     rf = RandomForestClassifier(labelCol='label', 
                             featuresCol='features',
-                            numTrees=100,
+                            numTrees=150,
                             maxBins=8, 
-                            maxDepth=18,
-                            seed=5043,
+                            maxDepth=15,
+                            seed=150,
                             impurity='gini')
     
     # use this model to tune on training data
@@ -130,9 +130,11 @@ if __name__ == "__main__":
     # Retrain model on mutiple parameters 
     cvmodel = None
     paramGrid = ParamGridBuilder() \
-            .addGrid(rf.maxBins, [4, 15, 20, 8])\
-            .addGrid(rf.maxDepth, [12, 9 , 30, 18])\
-            .addGrid(rf.numTrees, [200, 125, 300, 100])\
+            .addGrid(rf.maxBins, [9, 8, 4])\
+            .addGrid(rf.maxDepth, [25, 6 , 9])\
+            .addGrid(rf.numTrees, [500, 50, 150])\
+            .addGrid(rf.minInstancesPerNode, [6])\
+            .addGrid(rf.seed, [100, 200, 5043, 1000])\
             .addGrid(rf.impurity, ["entropy","gini"])\
             .build()
     pipeline = Pipeline(stages=[assembler, indexer, rf])
