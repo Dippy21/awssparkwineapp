@@ -6,7 +6,7 @@
  # Author : Deepika Batra
 ##
 """
-Spark application to train and tune model using wine prediction data
+Spark application to run tuned model with testfile
 """
 import os
 import sys
