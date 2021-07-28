@@ -21,18 +21,20 @@ User can create spark cluster using EMR console provided by AWS. Please follow s
    Use .pem as format. This will download {name of key pair}>.pem file. Keep it safe you will need that to do SSH to EC2 instances.
 2. Navigate to Amazon EMR console using link  https://console.aws.amazon.com/elasticmapreduce/home?region=us-east-1. Then, navigate to clusters-> create cluster.
 3. Now fill in respective sections:
+```
    General Configuratin -> Cluster Name 
    Software Configuration-> EMR 5.33 , do select 'Spark: Spark 2.4.7 on Hadoop 2.10.1 YARN and Zeppelin 0.9.0' option menu.
    Harware Configuration -> Make instance count as 4
    Security Access -> Provide .pem key created in above step.
    Rest of parameters can be left default.
+ ```
 
 User can also create spark cluster using below aws cli command:
   ```
   aws emr create-cluster --applications Name=Spark Name=Zeppelin --ebs-root-volume-size 10 --ec2-attributes '{"KeyName":"ec2-spark","InstanceProfile":"EMR_EC2_DefaultRole","SubnetId":"subnet-42c0ca0f","EmrManagedSlaveSecurityGroup":"sg-0d7ed2552ba71f5af","EmrManagedMasterSecurityGroup":"sg-0e853f0a4bdc5f799"}' --service-role EMR_DefaultRole --enable-debugging --release-label emr-5.33.0 --log-uri 's3n://aws-logs-367626191020-us-east-1/elasticmapreduce/' --name 'My cluster' --instance-groups '[{"InstanceCount":3,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core Instance Group"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master Instance Group"}]' --scale-down-behavior TERMINATE_AT_TASK_COMPLETION --region us-east-1
   ```
   
-4. Cluster status should be 'Waiting' on creatiion.
+4. Cluster status should be 'Waiting' on successful cluster creation.
 
 ### 2. How to train ML model in Spark cluster with 4 ec2 instances in parallel
 1. Now when cluster is ready to accept jobs, to submit one you can either use step button to add steps or submit manually.
@@ -55,12 +57,14 @@ User can also create spark cluster using below aws cli command:
 ### 3. How to run trained ML model locally without docker.
 1. Clone this repository.
 2. Make sure you have spark environment setup locally for running this. To setup one follow link https://spark.apache.org/docs/latest
-3. Install pyspark, you can use pip -m install pyspark. Or use `` conda``
-4. Once setup is ready execute below command:
-   place the testdata file in current directory and execute following command
+3. Navigate to awssparkwineappk/src folder
+4. Place your testdata in 'awssparkwineappk/data/csv' folder
+5. Install pyspark, you can use pip -m install pyspark. Or install `` conda`` package.
+6. Once setup is ready execute below command:
+   Execute following command
  ``` 
  cd awssparkwineapp
- spark-sumit wine_test_data_prediction.py ./<filename>
+ spark-submit wine_test_data_prediction.py <filename>
  ```
  
 ### 4. Run ML model using Docker
