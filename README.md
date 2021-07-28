@@ -66,7 +66,12 @@ User can create spark cluster using EMR console provided by AWS. Please follow s
  
 ### 4. Run ML model using Docker
 1. Install docker where you want to run this container
-2. docker pull dfordeepika/awssparkwineapp
-3. 
-   
+2. Docker pull dfordeepika/awssparkwineapp
+3. Place your testdata file in a folder (let call it directory dirA) , which you will mount with docker container.
+4. docker run -v {directory path for data dirA}:/code/data/csv dfordeepika/awssparkwineapp {testdata file name}
+ Sample command
+```
+docker run  -it -v /Users/deepika/workspace/deepika-cs-643/awssparkwineapp/data/csv:/code/data/csv dfordeepika/awssparkwineapp testdata.csv
+
+```
 
